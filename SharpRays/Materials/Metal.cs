@@ -1,21 +1,22 @@
 ﻿namespace SharpRays.Materials {
-    using SharpRays.Core;
-    using SharpRays.Utility;
+    using System.Numerics;
+    using Core;
+    using Utility;
 
     internal class Metal : IMaterial {
-        public Vector Albedo;
-        public double Fuzz;
+        public Vector3 Albedo;
+        public float Fuzz;
 
-        public Metal(Vector a, double f) {
+        public Metal(Vector3 a, float f) {
             Albedo = a;
             Fuzz = f;
         }
 
-        public bool Scatter(Ray ray, HitRecord rec, ref Vector attenuation, ref Ray scattered) {
-            var reflected = ray.Direction.Normalized.Reflect(rec.N);
-            scattered = new Ray(rec.P, reflected + Fuzz * Rand.RandomInUnitSphere);
+        public bool Scatter(Ray inRay, HitRecord rec, ref Vector3 attenuation, ref Ray scattered) {
+            var reflected = Vector3.Normalize(inRay.Direction).Reflect(rec.N);
+            scattered = new Ray(rec.P, reflected + Fuzz * Rand.RandomInUnitSphere(), inRay.Time);
             attenuation = Albedo;
-            return scattered.Direction.Dot(rec.N) > 0;
+            return Vector3.Dot(scattered.Direction, rec.N) > 0;
         }
     }
 }

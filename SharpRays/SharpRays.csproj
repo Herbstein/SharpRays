@@ -34,6 +34,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AABB.cs" />
     <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\Context.cs" />
+    <Compile Include="Hitables\BVHNode.cs" />
+    <Compile Include="Hitables\MovingSphere.cs" />
     <Compile Include="Materials\Dielectric.cs" />
     <Compile Include="Materials\Lambertian.cs" />
     <Compile Include="Materials\Metal.cs" />
+    <Compile Include="Textures\CheckerTexture.cs" />
+    <Compile Include="Textures\ConstantTexture.cs" />
+    <Compile Include="Textures\ITexture.cs" />
     <Compile Include="Utility\Extentions.cs" />
     <Compile Include="Hitables\HitableList.cs" />
     <Compile Include="Core\HitRecord.cs" />
@@ -54,6 +64,8 @@
     <Compile Include="Materials\IMaterial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\FastRandom.cs" />
+    <Compile Include="Utility\Mathf.cs" />
     <Compile Include="Utility\Rand.cs" />
     <Compile Include="Core\Ray.cs" />
     <Compile Include="Hitables\Sphere.cs" />
@@ -61,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

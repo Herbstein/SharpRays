@@ -1,19 +1,23 @@
 ﻿namespace SharpRays.Core {
-    using SharpRays.Materials;
+    using System.Numerics;
+    using Materials;
 
     internal struct HitRecord {
         /// <summary>
         ///     The ray-paramter of the hit
         /// </summary>
-        public double T;
+        public float T;
+
         /// <summary>
         ///     The 3D point of the hit
         /// </summary>
-        public Vector P;
+        public Vector3 P;
+
         /// <summary>
         ///     The normal of the hit
         /// </summary>
-        public Vector N;
+        public Vector3 N;
+
         /// <summary>
         ///     The material of the hit object
         /// </summary>

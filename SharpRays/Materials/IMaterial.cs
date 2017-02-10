@@ -1,7 +1,8 @@
 ﻿namespace SharpRays.Materials {
-    using SharpRays.Core;
+    using System.Numerics;
+    using Core;
 
     internal interface IMaterial {
-        bool Scatter(Ray ray, HitRecord rec, ref Vector attenuation, ref Ray scattered);
+        bool Scatter(Ray inRay, HitRecord rec, ref Vector3 attenuation, ref Ray scattered);
     }
 }

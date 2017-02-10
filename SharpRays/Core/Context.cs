@@ -1,7 +1,9 @@
 ﻿namespace SharpRays.Core {
     using System.Diagnostics;
     using System.IO;
+    using System.Numerics;
     using System.Text;
+    using Utility;
 
     /// <summary>
     ///     Contains the image being drawn.
@@ -10,7 +12,7 @@
         // The image height
         private readonly int height;
         // The pixel-data of the image
-        private readonly Vector[,] image;
+        private readonly Vector3[,] image;
         // The image width
         private readonly int width;
 
@@ -20,7 +22,7 @@
         /// <param name="width">The width</param>
         /// <param name="height">The height</param>
         public Context(int width, int height) {
-            image = new Vector[width, height];
+            image = new Vector3[width, height];
             this.width = width;
             this.height = height;
         }
@@ -31,7 +33,7 @@
         /// <param name="x">The x-coordinate of the pixel</param>
         /// <param name="y">Te y-coordinate of the pixel</param>
         /// <param name="pixel">The pixel-data</param>
-        public void SetPixel(int x, int y, Vector pixel) {
+        public void SetPixel(int x, int y, Vector3 pixel) {
             image[x, y] = pixel;
         }
 
@@ -46,7 +48,7 @@
             for (var y = height - 1; y >= 0; y--) {
                 for (var x = 0; x < width; x++) {
                     var pixel = image[x, y];
-                    builder.Append($"{pixel}\n");
+                    builder.Append($"{pixel.ToColorString()}\n");
                 }
             }
 

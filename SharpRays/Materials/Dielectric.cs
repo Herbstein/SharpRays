@@ -1,40 +1,42 @@
-﻿namespace SharpRays.Materials {
-    using System;
+﻿// ReSharper disable ImpureMethodCallOnReadonlyValueField
 
-    using SharpRays.Core;
-    using SharpRays.Utility;
+namespace SharpRays.Materials {
+    using System;
+    using System.Numerics;
+    using Core;
+    using Utility;
 
     internal class Dielectric : IMaterial {
-        private readonly double refractionIndex;
+        private readonly float refractionIndex;
 
-        public Dielectric(double ri) {
+        public Dielectric(float ri) {
             refractionIndex = ri;
         }
 
-        public bool Scatter(Ray ray, HitRecord rec, ref Vector attenuation, ref Ray scattered) {
-            Vector outwardNormal;
-            var reflected = ray.Direction.Reflect(rec.N);
-            double niOverNt;
-            attenuation = new Vector(1, 1, 1);
-            var refracted = new Vector();
-            double reflectProb;
-            double cosine;
-            if (ray.Direction.Dot(rec.N) > 0) {
+        public bool Scatter(Ray inRay, HitRecord rec, ref Vector3 attenuation, ref Ray scattered) {
+            Vector3 outwardNormal;
+            var reflected = inRay.Direction.Reflect(rec.N);
+            float niOverNt;
+            attenuation = new Vector3(1, 1, 1);
+            var refracted = new Vector3();
+            float cosine;
+
+            if (Vector3.Dot(inRay.Direction, rec.N) > 0) {
                 outwardNormal = -rec.N;
                 niOverNt = refractionIndex;
-                cosine = refractionIndex * ray.Direction.Dot(rec.N) / ray.Direction.Length;
+                cosine = refractionIndex * Vector3.Dot(inRay.Direction, rec.N) / inRay.Direction.Length();
             } else {
                 outwardNormal = rec.N;
                 niOverNt = 1 / refractionIndex;
-                cosine = -ray.Direction.Dot(rec.N) / ray.Direction.Length;
-            }
-            if (ray.Direction.Refract(outwardNormal, niOverNt, ref refracted)) {
-                reflectProb = Schlick(cosine, refractionIndex);
-            } else {
-                reflectProb = 1;
+                cosine = Vector3.Dot(-inRay.Direction, rec.N) / inRay.Direction.Length();
             }
 
-            scattered = Rand.Double < reflectProb ? new Ray(rec.P, reflected) : new Ray(rec.P, refracted);
+            var reflectProb = inRay.Direction.Refract(outwardNormal, niOverNt, ref refracted)
+                                  ? Schlick(cosine, refractionIndex)
+                                  : 1;
+            scattered = Rand.Float < reflectProb
+                            ? new Ray(rec.P, reflected, inRay.Time)
+                            : new Ray(rec.P, refracted, inRay.Time);
 
             return true;
         }

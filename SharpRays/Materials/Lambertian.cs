@@ -1,18 +1,20 @@
 ﻿namespace SharpRays.Materials {
-    using SharpRays.Core;
-    using SharpRays.Utility;
+    using System.Numerics;
+    using Core;
+    using Textures;
+    using Utility;
 
     internal class Lambertian : IMaterial {
-        public Vector Albedo;
+        public ITexture Albedo;
 
-        public Lambertian(Vector a) {
+        public Lambertian(ITexture a) {
             Albedo = a;
         }
 
-        public bool Scatter(Ray ray, HitRecord rec, ref Vector attenuation, ref Ray scattered) {
-            var target = rec.P + rec.N + Rand.RandomInUnitSphere;
-            scattered = new Ray(rec.P, target - rec.P);
-            attenuation = Albedo;
+        public bool Scatter(Ray inRay, HitRecord rec, ref Vector3 attenuation, ref Ray scattered) {
+            var target = rec.P + rec.N + Rand.RandomInUnitSphere();
+            scattered = new Ray(rec.P, target - rec.P, inRay.Time);
+            attenuation = Albedo.Value(0, 0, rec.P);
             return true;
         }
     }
