@@ -64,7 +64,6 @@
     <Compile Include="Materials\IMaterial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\FastRandom.cs" />
     <Compile Include="Utility\Mathf.cs" />
     <Compile Include="Utility\Rand.cs" />
     <Compile Include="Core\Ray.cs" />

@@ -1,17 +1,17 @@
 ﻿namespace SharpRays.Core {
-    using System.Numerics;
+	using System.Numerics;
 
-    internal struct Ray {
-        public readonly Vector3 Origin;
-        public readonly Vector3 Direction;
-        public readonly float Time;
+	internal struct Ray {
+		public readonly Vector3 Origin;
+		public readonly Vector3 Direction;
+		public readonly float Time;
 
-        public Ray(Vector3 o, Vector3 d, float t = 0.0f) {
-            Origin = o;
-            Direction = d;
-            Time = t;
-        }
+		public Ray(Vector3 o, Vector3 d, float t = 0.0f) {
+			Origin = o;
+			Direction = d;
+			Time = t;
+		}
 
-        public Vector3 PointAtParameter(float t) => Origin + Direction * t;
-    }
+		public Vector3 PointAtParameter(float t) { return Origin + Direction * t; }
+	}
 }
