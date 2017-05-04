@@ -71,15 +71,16 @@
 		}
 
 		private static IHitable RandomScene() {
-			var checkerTexture = new CheckerTexture(
-			                                        new ConstantTexture(new Vector3(0.2f, 0.3f, 0.1f)),
-			                                        new ConstantTexture(new Vector3(0.9f)));
-			var list = new List<IHitable>(486) {
+			var checkerTexture =
+				new ConstantTexture(new Vector3(0.5f, 0.5f, 0.5f));
+
+			var list = new List<IHitable> {
 				new Sphere(
 				           new Vector3(0, -1000.0f, 0),
 				           1000,
 				           new Lambertian(checkerTexture))
 			};
+
 			for (var a = -11; a < 11; a++) {
 				for (var b = -11; b < 11; b++) {
 					var chooseMat = Rand.Float;
@@ -87,21 +88,18 @@
 					if ((center - new Vector3(4, 0.2f, 0)).Length() > 0.9f) {
 						if (chooseMat < 0.8) { // diffuse
 							list.Add(
-							         new MovingSphere(
-							                          center,
-							                          center + new Vector3(0, 0.5f * Rand.Float, 0),
-							                          0,
-							                          1,
-							                          0.2f,
-							                          new Lambertian(
-							                                         new ConstantTexture(
-							                                                             new Vector3(
-							                                                                         Rand.Float *
-							                                                                         Rand.Float,
-							                                                                         Rand.Float *
-							                                                                         Rand.Float,
-							                                                                         Rand.Float *
-							                                                                         Rand.Float)))));
+							         new Sphere(
+							                    center,
+							                    0.2f,
+							                    new Lambertian(
+							                                   new ConstantTexture(
+							                                                       new Vector3(
+							                                                                   Rand.Float *
+							                                                                   Rand.Float,
+							                                                                   Rand.Float *
+							                                                                   Rand.Float,
+							                                                                   Rand.Float *
+							                                                                   Rand.Float)))));
 						} else if (chooseMat < 0.95) { // metal
 							list.Add(
 							         new Sphere(

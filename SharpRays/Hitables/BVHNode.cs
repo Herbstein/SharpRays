@@ -42,8 +42,9 @@
 			}
 
 			if (!Left.BoundingBox(time0, time1, out var boxLeft) || !Right.BoundingBox(time0, time1, out var boxRight)) {
-				throw new Exception("No bounding box in bvh_node constructor!");
+				throw new Exception("No bounding box in BVHNode");
 			}
+
 			Box = AABB.SurroundingBox(boxRight, boxLeft);
 		}
 
@@ -80,7 +81,7 @@
 
 		private static int BoxXCompare(IHitable a, IHitable b) {
 			if (!a.BoundingBox(0, 0, out var boxLeft) || !b.BoundingBox(0, 0, out var boxRight)) {
-				throw new Exception("no bounding box in BVHNode constructor\n");
+				throw new Exception("No bounding box in BVHNode");
 			}
 
 			if (boxLeft.Min.X - boxRight.Min.X < 0) {
@@ -92,7 +93,7 @@
 
 		private static int BoxYCompare(IHitable a, IHitable b) {
 			if (!a.BoundingBox(0, 0, out var boxLeft) || !b.BoundingBox(0, 0, out var boxRight)) {
-				throw new Exception("no bounding box in BVHNode constructor\n");
+				throw new Exception("No bounding box in BVHNode");
 			}
 
 			if (boxLeft.Min.Y - boxRight.Min.Y < 0) {
@@ -104,7 +105,7 @@
 
 		private static int BoxZCompare(IHitable a, IHitable b) {
 			if (!a.BoundingBox(0, 0, out var boxLeft) || !b.BoundingBox(0, 0, out var boxRight)) {
-				throw new Exception("no bounding box in BVHNode constructor\n");
+				throw new Exception("No bounding box in BVHNode");
 			}
 
 			if (boxLeft.Min.Z - boxRight.Min.Z < 0) {
